@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirection et Code HTML</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background: linear-gradient(to right, #ff7e5f, #feb47b); margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow-y: auto; }
+        .container { text-align: center; background: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 90%; max-width: 400px; margin: 20px 0; animation: fadeIn 2s; }
+        input, button, textarea { width: calc(100% - 20px); padding: 15px; margin: 10px 0; border-radius: 5px; border: 1px solid #ddd; transition: all 0.3s ease; }
+        input:focus, textarea:focus { border-color: #ff7e5f; box-shadow: 0 0 10px rgba(255, 126, 95, 0.5); }
+        button { cursor: pointer; transition: background-color 0.3s ease; }
+        .btn-submit { background-color: #ff7e5f; color: white; }
+        .btn-submit:hover { background-color: #feb47b; }
+        .btn-clear { background-color: #ff0000; color: white; }
+        .btn-clear:hover { background-color: #cc0000; }
+        .btn-copy { background-color: #00cc00; color: white; }
+        .btn-copy:hover { background-color: #009900; }
+        #result { margin-top: 20px; padding: 20px; background: rgba(255, 255, 255, 0.8); border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); }
+        iframe, video, img { max-width: 100%; max-height: 300px; border-radius: 10px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+        .particle { position: absolute; background: rgba(255, 255, 255, 0.5); border-radius: 50%; animation: drift 10s infinite; }
+        @keyframes drift { from { transform: translateY(0); } to { transform: translateY(-200vh); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Entrez le lien ou le code HTML</h1>
+        <form id="linkForm">
+            <input type="url" id="linkInput" placeholder="https://example.com">
+            <button type="submit" class="btn-submit">Aller</button>
+        </form>
+        <form id="htmlForm">
+            <textarea id="htmlInput" rows="6" placeholder="<h1>Hello, World!</h1>"></textarea>
+            <button type="submit" class="btn-submit">Ouvrir le code HTML</button>
+            <button type="button" class="btn-clear" onclick="clearHtml()">Effacer</button>
+            <button type="button" class="btn-copy" onclick="copyHtml()">Copier</button>
+        </form>
+        <form id="embedForm">
+            <input type="text" id="embedInput" placeholder="Code d'intégration">
+            <button type="submit" class="btn-submit">Afficher</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <div class="particles">
+        <div class="particle" style="width: 10px; height: 10px; top: 50%; left: 25%;"></div>
+        <div class="particle" style="width: 20px; height: 20px; top: 10%; left: 50%;"></div>
+        <div class="particle" style="width: 15px; height: 15px; top: 80%; left: 75%;"></div>
+    </div>
+
+    <script>
+        document.getElementById('linkForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let link = document.getElementById('linkInput').value;
+            if (link) {
+                window.location.href = link;
+            }
+        });
+
+        document.getElementById('htmlForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let htmlCode = document.getElementById('htmlInput').value;
+            if (htmlCode) {
+                document.getElementById('result').innerHTML = htmlCode;
+            }
+        });
+
+        document.getElementById('embedForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let embedCode = document.getElementById('embedInput').value;
+            if (embedCode) {
+                document.getElementById('result').innerHTML = embedCode;
+            }
+        });
+
+        function clearHtml() {
+            document.getElementById('htmlInput').value = '';
+        }
+
+        function copyHtml() {
+            let htmlCode = document.getElementById('htmlInput');
+            htmlCode.select();
+            htmlCode.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            alert("Code HTML copié: " + htmlCode.value);
+        }
+    </script>
+</body>
+</html>
